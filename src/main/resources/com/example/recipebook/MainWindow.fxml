@@ -16,13 +16,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.recipebook.controller.ControllerMainWindow">
    <children>
-      <VBox prefHeight="710.0" prefWidth="620.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="710.0" prefWidth="620.0" style="-fx-background-color: #d5f4f0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="TOP_RIGHT" fillHeight="false">
                <children>
-                  <TextField focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="25.0" promptText="Поиск" HBox.hgrow="ALWAYS">
+                  <TextField focusTraversable="false" maxWidth="1.7976931348623157E308" onAction="#search" prefHeight="25.0" promptText="Поиск" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -30,7 +30,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <Button focusTraversable="false" mnemonicParsing="false" prefHeight="25.0" text="Добавить рецепт">
+                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#addRecipe" prefHeight="25.0" style="-fx-background-color: #17b050;" text="Добавить рецепт">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
@@ -50,7 +50,7 @@
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" style="-fx-background-radius: 10;" text="Завтрак">
+                  <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#menuEnter" prefHeight="70.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-background-color: #b6eed8;" text="Завтрак">
                      <graphic>
                         <ImageView fitHeight="71.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -65,7 +65,7 @@
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
                   </Button>
-                  <Button focusTraversable="false" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" style="-fx-background-radius: 10;" text="Обед" GridPane.columnIndex="1">
+                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#menuEnter" prefHeight="70.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-background-color: #b6eed8;" text="Обед" GridPane.columnIndex="1">
                      <graphic>
                         <ImageView fitHeight="63.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -76,7 +76,7 @@
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
                   </Button>
-                  <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" style="-fx-background-radius: 10;" text="Перекус" GridPane.rowIndex="1">
+                  <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#menuEnter" prefHeight="70.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-background-color: #b6eed8;" text="Перекус" GridPane.rowIndex="1">
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -87,7 +87,7 @@
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor></Button>
-                  <Button focusTraversable="false" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" style="-fx-background-radius: 10;" text="Ужин" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#menuEnter" prefHeight="70.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-background-color: #b6eed8;" text="Ужин" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <graphic>
                         <ImageView fitHeight="70.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -111,7 +111,7 @@
                   <Insets left="10.0" top="15.0" />
                </VBox.margin>
             </Label>
-            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #dcdcdc;" text="Холодные закуски" textFill="#314cf8">
+            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuEnter" prefHeight="30.0" style="-fx-background-color: #b6eed8;" text="Холодные закуски" textFill="#314cf8">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
@@ -119,7 +119,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: transparent;" text="Горячие закуски" textFill="#314cf8">
+            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuEnter" prefHeight="30.0" style="-fx-background-color: transparent;" text="Горячие закуски" textFill="#314cf8">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -127,7 +127,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #dcdcdc;" text="Салаты" textFill="#314cf8">
+            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuEnter" prefHeight="30.0" style="-fx-background-color: #b6eed8;" text="Салаты" textFill="#314cf8">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -135,7 +135,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: transparent;" text="Супы" textFill="#314cf8">
+            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuEnter" prefHeight="30.0" style="-fx-background-color: transparent;" text="Супы" textFill="#314cf8">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -143,7 +143,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #dcdcdc;" text="Блюда с мясом" textFill="#314cf8">
+            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuEnter" prefHeight="30.0" style="-fx-background-color: #b6eed8;" text="Блюда с мясом" textFill="#314cf8">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -151,7 +151,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: transparent;" text="Блюда с птицей" textFill="#314cf8">
+            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuEnter" prefHeight="30.0" style="-fx-background-color: transparent;" text="Блюда с птицей" textFill="#314cf8">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -159,7 +159,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #dcdcdc;" text="Гарниры" textFill="#314cf8">
+            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuEnter" prefHeight="30.0" style="-fx-background-color: #b6eed8;" text="Гарниры" textFill="#314cf8">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -167,7 +167,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: transparent;" text="Сладкая выпечка" textFill="#314cf8">
+            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuEnter" prefHeight="30.0" style="-fx-background-color: transparent;" text="Сладкая выпечка" textFill="#314cf8">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -175,7 +175,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: #dcdcdc;" text="Десерты" textFill="#314cf8">
+            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuEnter" prefHeight="30.0" style="-fx-background-color: #b6eed8;" text="Десерты" textFill="#314cf8">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -183,7 +183,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: transparent;" text="Напитки" textFill="#314cf8">
+            <Button alignment="TOP_LEFT" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#menuEnter" prefHeight="30.0" style="-fx-background-color: transparent;" text="Напитки" textFill="#314cf8">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>

@@ -5,4 +5,7 @@ module com.example.recipebook {
 
     opens com.example.recipebook to javafx.fxml;
     exports com.example.recipebook;
+
+    opens com.example.recipebook.controller to javafx.fxml;
+    exports  com.example.recipebook.controller;
 }
