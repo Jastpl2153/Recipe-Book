@@ -20,51 +20,27 @@ public class Recipe {
         this.instructions = instructions;
     }
 
-    public Recipe() {
-    }
-
     // Getters and Setters
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getTypeOfMeal() {
         return typeOfMeal;
     }
 
-    public void setTypeOfMeal(String typeOfMeal) {
-        this.typeOfMeal = typeOfMeal;
-    }
-
     public String getTypeOfFood() {
         return typeOfFood;
-    }
-
-    public void setTypeOfFood(String typeOfFood) {
-        this.typeOfFood = typeOfFood;
     }
 
     public String getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
-
     public String getInstructions() {
         return instructions;
     }
 
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
-    }
-
-    // Override toString() method for easier debugging and printing
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

@@ -27,45 +27,31 @@ public class ControllerMainWindow {
     @FXML
     void menuEnter(ActionEvent event) throws SQLException {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        ControllerMenuWindow con = SceneSwitcher.switchSceneMenu("/com/example/recipebook/MenuWindow.fxml", currentStage);
+        SceneSwitcher.switchScene("/com/example/recipebook/MenuWindow.fxml", currentStage);
 
+        ControllerMenuWindow con = SceneSwitcher.getController();
         String type = ((Button) event.getSource()).getText();
         List<Recipe> recipes = recipeDAO.getRecipe(type);
 
-        con.getBox().getChildren().clear();
-        for (Recipe recipe : recipes) {
-            Button repiceButton = new Button(recipe.getTitle());
-            con.getBox().getChildren().add(repiceButton);
-        }
+        updateRecipeButtons(con, recipes);
+    }
 
-        for (Node node :con.getBox().getChildren()) {
+    private void updateRecipeButtons(ControllerMenuWindow controller, List<Recipe> recipes) {
+        controller.getBox().getChildren().clear();
+
+        controller.getBox().getChildren().addAll(recipes.stream()
+                .map(recipe -> new Button(recipe.getTitle()))
+                .toList());
+
+        controller.getBox().getChildren().forEach(node -> {
             VBox.setMargin(node, new Insets(10, 15, 0, 15));
-            Region region = (Region) node;
-            region.setMaxWidth(Double.MAX_VALUE);
-        }
+            ((Region) node).setMaxWidth(Double.MAX_VALUE);
+            node.setStyle("-fx-background-color: #b6eed8");
+        });
     }
 
     @FXML
     void search(ActionEvent event) {
 
     }
-
-    @FXML
-    void back(ActionEvent event) {
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        SceneSwitcher.switchScene("/com/example/recipebook/MainWindow.fxml", currentStage);
-    }
 }
-//        try {
-//            List<Recipe> recipes = recipeDAO.getRecipe(type);
-//            VBox vBox = new VBox();
-//            for (Recipe recipe : recipes) {
-//                Button repiceButton = new Button(recipe.getTitle());
-//                menu.getVbox().getChildren().add(repiceButton);
-////                repiceButton.setOnAction(actionEvent -> {});
-////                vBox.getChildren().add(repiceButton);
-////                menu.setVbox(vBox);
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
