@@ -1,6 +1,11 @@
 package com.example.recipebook.model;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeDAO {
     private Connection connection;
@@ -39,6 +44,34 @@ public class RecipeDAO {
                 connection.close();
             }
         }
+    }
+
+    public List<Recipe> getRecipe(String type) throws SQLException {
+        List<Recipe> recipes = new ArrayList<>();
+        String query = "SELECT * FROM recipes WHERE typeOfMeal = ? OR typeOfFood = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, type);
+            preparedStatement.setString(2, type);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Recipe recipe = new Recipe();
+                    recipe.setTitle(resultSet.getString("title"));
+                    recipe.setTypeOfMeal(resultSet.getString("typeOfMeal"));
+                    recipe.setTypeOfFood(resultSet.getString("typeOfFood"));
+                    recipe.setIngredients(resultSet.getString("ingredients"));
+                    recipe.setInstructions(resultSet.getString("instructions"));
+                    recipes.add(recipe);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return recipes;
     }
 }
 
