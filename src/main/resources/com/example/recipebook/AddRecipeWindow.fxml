@@ -21,13 +21,39 @@
                   <Insets left="15.0" right="15.0" top="15.0" />
                </VBox.margin>
             </Button>
-            <TextField focusTraversable="false" promptText="Название">
+            <TextField fx:id="nameEat" focusTraversable="false" promptText="Название">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="10.0" />
                </VBox.margin>
                <font>
                   <Font name="Arial Bold" size="18.0" />
                </font>
+            </TextField>
+            <Label text="Тип трапезы:">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="typeOfMeal" promptText="(Завтрак, Обед, Ужин, Перекус)">
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Категория:">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="typeOfFood" promptText="(Суп, Гарнир, Салат, и.т.д)">
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="5.0" />
+               </VBox.margin>
             </TextField>
             <Label text="Ингридиенты:">
                <font>
@@ -37,7 +63,7 @@
                   <Insets left="15.0" right="15.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <TextArea focusTraversable="false" maxHeight="150.0" promptText="Список" style="-fx-background-color: transparent;" wrapText="true" VBox.vgrow="SOMETIMES">
+            <TextArea fx:id="ingredients" focusTraversable="false" maxHeight="150.0" promptText="Список" style="-fx-background-color: transparent;" wrapText="true" VBox.vgrow="SOMETIMES">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="5.0" />
                </VBox.margin>
@@ -53,7 +79,7 @@
                   <Insets left="15.0" right="15.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <TextArea focusTraversable="false" prefHeight="200.0" prefWidth="200.0" promptText="Введите подробную инструкцию по приготовлению." style="-fx-background-color: transparent;" wrapText="true" VBox.vgrow="SOMETIMES">
+            <TextArea fx:id="instructions" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" promptText="Введите подробную инструкцию по приготовлению." style="-fx-background-color: transparent;" wrapText="true" VBox.vgrow="SOMETIMES">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="5.0" />
                </VBox.margin>
@@ -61,7 +87,7 @@
                   <Font name="Arial" size="12.0" />
                </font>
             </TextArea>
-            <Button focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #17b050;" text="Добавить рецепт">
+            <Button focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addRecipe" style="-fx-background-color: #17b050;" text="Добавить рецепт">
                <VBox.margin>
                   <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
                </VBox.margin>
