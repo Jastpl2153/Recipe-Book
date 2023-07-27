@@ -1,6 +1,5 @@
 package com.example.recipebook.model;
 
-import com.example.recipebook.controller.ControllerMenuWindow;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,7 +23,7 @@ public class SceneSwitcher {
         }
     }
 
-    public static ControllerMenuWindow getController(){
+    public static Object getController(){
         return loader.getController();
     }
 }

@@ -17,15 +17,6 @@ public class RecipeDAO {
         }
     }
 
-    public boolean isDbConnection(){
-        try {
-            return !connection.isClosed();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
     public void addRecipe(Recipe recipe) throws SQLException {
         String query = "INSERT INTO recipes (title, typeOfMeal, typeOfFood, ingredients, instructions) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
