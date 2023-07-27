@@ -20,6 +20,9 @@ public class Recipe {
         this.instructions = instructions;
     }
 
+    public Recipe() {
+    }
+
     // Getters and Setters
     public String getTitle() {
         return title;

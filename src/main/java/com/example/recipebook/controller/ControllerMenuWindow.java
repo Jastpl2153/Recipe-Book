@@ -4,12 +4,20 @@ import com.example.recipebook.model.SceneSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ControllerMenuWindow {
     @FXML
+    private VBox box;
+
+    @FXML
     void back(ActionEvent event) {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         SceneSwitcher.switchScene("/com/example/recipebook/MainWindow.fxml", currentStage);
+    }
+
+    public VBox getBox() {
+        return box;
     }
 }
