@@ -5,25 +5,24 @@ import com.example.recipebook.model.RecipeDAO;
 import com.example.recipebook.model.SceneSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
-public class ControllerAddRecipeWindow implements Initializable {
+public class ControllerAddRecipeWindow{
     @FXML
     private TextField nameEat;
 
     @FXML
-    private TextField typeOfFood;
+    private SplitMenuButton typeOfFood;
 
     @FXML
-    private TextField typeOfMeal;
+    private SplitMenuButton typeOfMeal;
 
     @FXML
     private TextArea ingredients;
@@ -33,21 +32,29 @@ public class ControllerAddRecipeWindow implements Initializable {
 
     private RecipeDAO recipeDAO = new RecipeDAO();
     private Recipe recipe;
+
+    @FXML
+    void EnterTypeOfFood(ActionEvent event) {
+        typeOfFood.setText(((MenuItem) event.getSource()).getText());
+    }
+
+    @FXML
+    void EnterTypeOfMeal(ActionEvent event) {
+        typeOfMeal.setText(((MenuItem) event.getSource()).getText());
+    }
+
     @FXML
     void addRecipe(ActionEvent event) {
-        if (!nameEat.getText().isEmpty()
-                && !typeOfFood.getText().isEmpty()
-                && !typeOfMeal.getText().isEmpty()
-                && !ingredients.getText().isEmpty()
-                && !instructions.getText().isEmpty()){
-            recipe = new Recipe(nameEat.getText(), typeOfFood.getText(), typeOfMeal.getText(),
-                    ingredients.getText(), instructions.getText());
+        if (!nameEat.getText().isEmpty() && !typeOfFood.getText().isEmpty() && !typeOfMeal.getText().isEmpty()
+                && !ingredients.getText().isEmpty() && !instructions.getText().isEmpty()){
             try {
+                recipe = new Recipe(nameEat.getText(), typeOfFood.getText(), typeOfMeal.getText(), ingredients.getText(), instructions.getText());
                 recipeDAO.addRecipe(recipe);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
             cleanField();
+            //TODO: Реализовать переход к странице рецепта.
         }
     }
 
@@ -57,13 +64,6 @@ public class ControllerAddRecipeWindow implements Initializable {
         typeOfMeal.setText("");
         ingredients.setText("");
         instructions.setText("");
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (recipeDAO.isDbConnection()){
-            System.out.println("+");
-        }
     }
 
     @FXML
