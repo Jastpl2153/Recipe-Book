@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -12,25 +13,36 @@
    <children>
       <VBox prefHeight="710.0" prefWidth="410.0" style="-fx-background-color: #d5f4f0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#back" style="-fx-background-color: #f0381f;" text="Назад" textFill="WHITE">
-               <font>
-                  <Font name="Arial" size="12.0" />
-               </font>
+            <BorderPane>
+               <left>
+                  <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#back" style="-fx-background-color: #f0381f;" text="Назад" textFill="WHITE" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Button>
+               </left>
+               <right>
+                  <Button alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#delete" style="-fx-background-color: #065cf9;" text="Удалить" textFill="WHITE" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Button>
+               </right>
                <VBox.margin>
-                  <Insets left="15.0" right="15.0" top="15.0" />
+                  <Insets left="15.0" right="15.0" top="10.0" />
                </VBox.margin>
-            </Button>
+            </BorderPane>
             <Label fx:id="title">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="10.0" />
                </VBox.margin>
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="Arial" size="18.0" />
                </font>
             </Label>
             <Label text="Ингридиенты:">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="Arial Bold" size="18.0" />
                </font>
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="10.0" />
@@ -38,7 +50,7 @@
             </Label>
             <Label fx:id="ingredients">
                <font>
-                  <Font name="Arial" size="14.0" />
+                  <Font name="Arial" size="16.0" />
                </font>
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="10.0" />
@@ -46,18 +58,21 @@
             </Label>
             <Label text="Приготовление:">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="Arial Bold" size="18.0" />
                </font>
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" VBox.vgrow="SOMETIMES">
+            <ScrollPane blendMode="DARKEN" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" VBox.vgrow="SOMETIMES">
                <content>
                   <Label fx:id="instructions" focusTraversable="false" style="-fx-background-color: #d5f4f0;" textAlignment="JUSTIFY" wrapText="true">
                      <padding>
                         <Insets right="15.0" />
                      </padding>
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
                   </Label>
                </content>
                <VBox.margin>

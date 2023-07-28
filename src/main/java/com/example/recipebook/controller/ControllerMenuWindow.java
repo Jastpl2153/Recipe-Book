@@ -34,6 +34,7 @@ public class ControllerMenuWindow {
             recipeWindow.getTitle().setText(recipe.getTitle());
             recipeWindow.getIngredients().setText(recipe.getIngredients());
             recipeWindow.getInstructions().setText(recipe.getInstructions());
+            recipeWindow.setSelectedRecipe(recipe);
         }
     }
 
