@@ -14,7 +14,7 @@ public class RecipeDAO {
 
     public RecipeDAO() {
         connection = SQLiteConnection.connection();
-        if (connection == null){
+        if (connection == null) {
             System.exit(1);
         }
         try {
@@ -24,106 +24,60 @@ public class RecipeDAO {
         }
     }
 
-    public void addRecipe(Recipe recipe) throws SQLException {
+    // Метод для добавления нового рецепта в базу данных
+    public void addRecipe(Recipe recipe) {
         String query = "INSERT INTO recipes (title, typeOfMeal, typeOfFood, ingredients, instructions) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, recipe.getTitle());
-            preparedStatement.setString(2, recipe.getTypeOfMeal());
-            preparedStatement.setString(3, recipe.getTypeOfFood());
-            preparedStatement.setString(4, recipe.getIngredients());
-            preparedStatement.setString(5, recipe.getInstructions());
-
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (connection != null) {
-                connection.close();
-            }
-        }
+        executeUpdateQuery(query, recipe.getTitle(), recipe.getTypeOfMeal(), recipe.getTypeOfFood(), recipe.getIngredients(), recipe.getInstructions());
     }
 
+    // Метод для получения списка рецептов из базы данных по указанному типу
     public List<Recipe> getRecipe(String type) {
-        List<Recipe> recipes = new ArrayList<>();
         String query = "SELECT * FROM recipes WHERE typeOfMeal = ? OR typeOfFood = ?";
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, type);
-            preparedStatement.setString(2, type);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    Recipe recipe = new Recipe(
-                            resultSet.getString("title"),
-                            resultSet.getString("typeOfMeal"),
-                            resultSet.getString("typeOfFood"),
-                            resultSet.getString("ingredients"),
-                            resultSet.getString("instructions"),
-                            resultSet.getInt("id")
-                    );
-                    recipes.add(recipe);
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return recipes;
+        return executeQuery(query, type, type);
     }
 
-    public void deleteRecipe(Recipe recipe) throws SQLException {
+    // Метод для удаления рецепта из базы данных
+    public void deleteRecipe(Recipe recipe) {
         String query = "DELETE FROM recipes WHERE title = ? AND typeOfMeal = ? AND typeOfFood = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, recipe.getTitle());
-            preparedStatement.setString(2, recipe.getTypeOfMeal());
-            preparedStatement.setString(3, recipe.getTypeOfFood());
-
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (connection != null) {
-                connection.close();
-            }
-        }
+        executeUpdateQuery(query, recipe.getTitle(), recipe.getTypeOfMeal(), recipe.getTypeOfFood());
     }
 
-    public void updateRecipe(Recipe recipe) throws SQLException {
+    // Метод для обновления рецепта в базе данных
+    public void updateRecipe(Recipe recipe) {
         String query = "UPDATE recipes SET title = ?, typeOfMeal = ?, typeOfFood = ?, ingredients = ?, instructions = ? WHERE id = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, recipe.getTitle());
-            preparedStatement.setString(2, recipe.getTypeOfMeal());
-            preparedStatement.setString(3, recipe.getTypeOfFood());
-            preparedStatement.setString(4, recipe.getIngredients());
-            preparedStatement.setString(5, recipe.getInstructions());
-            preparedStatement.setInt(6, recipe.getId());
-
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (connection != null) {
-                connection.close();
-            }
-        }
+        executeUpdateQuery(query, recipe.getTitle(), recipe.getTypeOfMeal(), recipe.getTypeOfFood(), recipe.getIngredients(), recipe.getInstructions(), recipe.getId());
     }
 
+    // Метод для поиска рецептов по заданному слову в базе данных
     public List<Recipe> searchRecipes(String searchWord) {
-        List<Recipe> recipes = new ArrayList<>();
         String query = "SELECT DISTINCT * FROM recipes WHERE " +
                 "lower(title) LIKE ? OR " +
                 "lower(typeOfMeal) LIKE ? OR " +
                 "lower(typeOfMeal) LIKE ? OR " +
                 "lower(ingredients) LIKE ?";
+        String searchPattern = "%" + searchWord + "%";
+        return executeQuery(query, searchPattern, searchPattern, searchPattern, searchPattern);
+    }
 
+    // Общий метод для выполнения запроса без возвращаемого результата
+    private void executeUpdateQuery(String query, Object... parameters) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            String searchPattern = "%" + searchWord + "%";
-            preparedStatement.setString(1, searchPattern);
-            preparedStatement.setString(2, searchPattern);
-            preparedStatement.setString(3, searchPattern);
-            preparedStatement.setString(4, searchPattern);
+            for (int i = 0; i < parameters.length; i++) {
+                preparedStatement.setObject(i + 1, parameters[i]);
+            }
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    // Общий метод для выполнения запроса с возвращаемым результатом
+    private List<Recipe> executeQuery(String query, Object... parameters) {
+        List<Recipe> recipes = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            for (int i = 0; i < parameters.length; i++) {
+                preparedStatement.setObject(i + 1, parameters[i]);
+            }
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Recipe recipe = new Recipe(
@@ -140,7 +94,6 @@ public class RecipeDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return recipes;
     }
 }

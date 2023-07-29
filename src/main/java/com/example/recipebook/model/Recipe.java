@@ -1,6 +1,8 @@
 package com.example.recipebook.model;
 
+import lombok.Data;
 
+@Data
 public class Recipe {
     private String title;
 
@@ -29,51 +31,6 @@ public class Recipe {
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.id = id;
-    }
-
-    // Getters and Setters
-    public String getTitle() {
-        return title;
-    }
-
-    public String getTypeOfMeal() {
-        return typeOfMeal;
-    }
-
-    public String getTypeOfFood() {
-        return typeOfFood;
-    }
-
-    public String getIngredients() {
-        return ingredients;
-    }
-
-    public String getInstructions() {
-        return instructions;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setTypeOfMeal(String typeOfMeal) {
-        this.typeOfMeal = typeOfMeal;
-    }
-
-    public void setTypeOfFood(String typeOfFood) {
-        this.typeOfFood = typeOfFood;
-    }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
     }
 
     @Override

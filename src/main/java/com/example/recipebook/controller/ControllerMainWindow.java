@@ -25,14 +25,13 @@ public class ControllerMainWindow {
 
     @FXML
     void menuEnter(ActionEvent event) {
-        SceneSwitcher.switchScene("/com/example/recipebook/MenuWindow.fxml", getStage());
-
-        ControllerMenuWindow con = (ControllerMenuWindow) SceneSwitcher.getController();
         String type = ((Button) event.getSource()).getText();
+        List<Recipe> recipes = recipeDAO.getRecipe(type);
 
-        RecipeDataModel.getInstance().setRecipes(recipeDAO.getRecipe(type));
+        RecipeDataModel.getInstance().setRecipes(recipes);
 
-        con.updateRecipeButtons(RecipeDataModel.getInstance().getRecipes());
+        SceneSwitcher.switchScene("/com/example/recipebook/MenuWindow.fxml", getStage());
+        updateMenuRecipeButtons();
     }
 
     @FXML
@@ -43,16 +42,19 @@ public class ControllerMainWindow {
         RecipeDataModel.getInstance().setRecipes(recipes);
 
         SceneSwitcher.switchScene("/com/example/recipebook/MenuWindow.fxml", getStage());
+        updateMenuRecipeButtons();
+    }
 
+    private void updateMenuRecipeButtons() {
         ControllerMenuWindow con = (ControllerMenuWindow) SceneSwitcher.getController();
-        con.updateRecipeButtons(recipes);
+        con.updateRecipeButtons(RecipeDataModel.getInstance().getRecipes());
     }
 
     private List<Recipe> getRecipesBySearch(String userInput) {
         return recipeDAO.searchRecipes(userInput.toLowerCase());
     }
 
-    private Stage getStage(){
+    private Stage getStage() {
         stage = (Stage) search.getScene().getWindow();
         return stage;
     }

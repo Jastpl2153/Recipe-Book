@@ -6,11 +6,8 @@ import com.example.recipebook.model.RecipeDataModel;
 import com.example.recipebook.model.SceneSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-
-import java.sql.SQLException;
 
 public class ControllerDeleteRecipeWindow {
     private RecipeDAO recipeDAO = new RecipeDAO();
@@ -27,24 +24,23 @@ public class ControllerDeleteRecipeWindow {
     void isDelete(ActionEvent event) {
         Button button = (Button) event.getSource();
         if (button.getText().equals("Да") && recipeToDelete != null) {
-            try {
-               recipeDAO.deleteRecipe(recipeToDelete);
-               RecipeDataModel.getInstance().getRecipes().remove(recipeToDelete);
-
-               SceneSwitcher.switchScene("/com/example/recipebook/MenuWindow.fxml", stage);
-
-               ControllerMenuWindow window = (ControllerMenuWindow) SceneSwitcher.getController();
-               window.updateRecipeButtons(RecipeDataModel.getInstance().getRecipes());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            deleteRecipeAndRefreshMenu();
         }
         exit(button);
     }
 
-    private void exit(Button button){
-        Scene scene = button.getScene();
-        Stage stage = (Stage) scene.getWindow();
+    private void deleteRecipeAndRefreshMenu() {
+        recipeDAO.deleteRecipe(recipeToDelete);
+        RecipeDataModel.getInstance().getRecipes().remove(recipeToDelete);
+
+        SceneSwitcher.switchScene("/com/example/recipebook/MenuWindow.fxml", stage);
+
+        ControllerMenuWindow window = (ControllerMenuWindow) SceneSwitcher.getController();
+        window.updateRecipeButtons(RecipeDataModel.getInstance().getRecipes());
+    }
+
+    private void exit(Button button) {
+        Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
     }
 }
