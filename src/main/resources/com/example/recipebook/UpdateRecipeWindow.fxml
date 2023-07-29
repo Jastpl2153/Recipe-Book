@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.recipebook.controller.ControllerUpdateRecipeWindow">
+   <children>
+      <VBox prefHeight="710.0" prefWidth="410.0" style="-fx-background-color: #d5f4f0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#back" style="-fx-background-color: #f0381f;" text="Назад" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </Button>
+            <TextField fx:id="nameEat" focusTraversable="false" promptText="Название">
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </TextField>
+            <Label text="Тип трапезы:">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <SplitMenuButton fx:id="typeOfFood" contentDisplay="BOTTOM" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@styles/StyleMenu.css">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#UpdateTypeOfFood" text="Завтрак" />
+                  <MenuItem mnemonicParsing="false" onAction="#UpdateTypeOfFood" text="Обед" />
+                  <MenuItem mnemonicParsing="false" onAction="#UpdateTypeOfFood" text="Ужин" />
+                  <MenuItem mnemonicParsing="false" onAction="#UpdateTypeOfFood" text="Перекус" />
+               </items>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="5.0" />
+               </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </SplitMenuButton>
+            <Label text="Категория:">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <SplitMenuButton fx:id="typeOfMeal" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@styles/StyleMenu.css">
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="5.0" />
+               </VBox.margin>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#UpdateTypeOfMeal" text="Холодные закуски" />
+                  <MenuItem mnemonicParsing="false" onAction="#UpdateTypeOfMeal" text="Горячие закуски" />
+                  <MenuItem mnemonicParsing="false" onAction="#UpdateTypeOfMeal" text="Салаты" />
+                  <MenuItem mnemonicParsing="false" onAction="#UpdateTypeOfMeal" text="Супы" />
+                  <MenuItem mnemonicParsing="false" onAction="#UpdateTypeOfMeal" text="Блюда с мясом" />
+                  <MenuItem mnemonicParsing="false" onAction="#UpdateTypeOfMeal" text="Блюда с птицей" />
+                  <MenuItem mnemonicParsing="false" onAction="#UpdateTypeOfMeal" text="Гарниры" />
+                  <MenuItem mnemonicParsing="false" onAction="#UpdateTypeOfMeal" text="Сладкая выпечка" />
+                  <MenuItem mnemonicParsing="false" onAction="#UpdateTypeOfMeal" text="Десерты" />
+                  <MenuItem mnemonicParsing="false" onAction="#UpdateTypeOfMeal" text="Напитки" />
+               </items>
+            </SplitMenuButton>
+            <Label text="Ингридиенты:">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextArea fx:id="ingredients" focusTraversable="false" maxHeight="150.0" promptText="Список" style="-fx-background-color: transparent;" wrapText="true" VBox.vgrow="SOMETIMES">
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextArea>
+            <Label text="Приготовление:">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextArea fx:id="instructions" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" promptText="Введите подробную инструкцию по приготовлению." style="-fx-background-color: transparent;" wrapText="true" VBox.vgrow="SOMETIMES">
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" top="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </TextArea>
+            <Button focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#update" style="-fx-background-color: #17b050;" text="Изменить рецепт" textFill="WHITE">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Arial Bold" size="13.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

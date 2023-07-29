@@ -31,6 +31,16 @@
                <VBox.margin>
                   <Insets left="15.0" right="15.0" top="10.0" />
                </VBox.margin>
+               <center>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#updateRecipe" style="-fx-background-color: #17b050;" text="Изменить" textFill="WHITE" BorderPane.alignment="CENTER_RIGHT">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                     <BorderPane.margin>
+                        <Insets right="5.0" />
+                     </BorderPane.margin>
+                  </Button>
+               </center>
             </BorderPane>
             <Label fx:id="title">
                <VBox.margin>
