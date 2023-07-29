@@ -48,16 +48,16 @@ public class ControllerAddRecipeWindow{
         if (!nameEat.getText().isEmpty() && !typeOfFood.getText().isEmpty() && !typeOfMeal.getText().isEmpty()
                 && !ingredients.getText().isEmpty() && !instructions.getText().isEmpty()){
             try {
-                recipe = new Recipe(nameEat.getText(), typeOfFood.getText(), typeOfMeal.getText(), ingredients.getText(), instructions.getText());
+                recipe = new Recipe(nameEat.getText(), typeOfMeal.getText(), typeOfFood.getText(), ingredients.getText(), instructions.getText());
                 recipeDAO.addRecipe(recipe);
-                openRecipe();
+                openRecipeWindow();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
-    private void openRecipe(){
+    private void openRecipeWindow(){
         SceneSwitcher.switchScene("/com/example/recipebook/RecipeWindow.fxml", getStage());
         ControllerRecipeWindow recipeWindow = (ControllerRecipeWindow) SceneSwitcher.getController();
 

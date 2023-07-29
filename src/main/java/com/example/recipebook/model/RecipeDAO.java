@@ -52,7 +52,8 @@ public class RecipeDAO {
                             resultSet.getString("typeOfMeal"),
                             resultSet.getString("typeOfFood"),
                             resultSet.getString("ingredients"),
-                            resultSet.getString("instructions")
+                            resultSet.getString("instructions"),
+                            resultSet.getInt("id")
                     );
                     recipes.add(recipe);
                 }
@@ -70,6 +71,26 @@ public class RecipeDAO {
             preparedStatement.setString(1, recipe.getTitle());
             preparedStatement.setString(2, recipe.getTypeOfMeal());
             preparedStatement.setString(3, recipe.getTypeOfFood());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    }
+
+    public void updateRecipe(Recipe recipe) throws SQLException {
+        String query = "UPDATE recipes SET title = ?, typeOfMeal = ?, typeOfFood = ?, ingredients = ?, instructions = ? WHERE id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, recipe.getTitle());
+            preparedStatement.setString(2, recipe.getTypeOfMeal());
+            preparedStatement.setString(3, recipe.getTypeOfFood());
+            preparedStatement.setString(4, recipe.getIngredients());
+            preparedStatement.setString(5, recipe.getInstructions());
+            preparedStatement.setInt(6, recipe.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
