@@ -77,6 +77,7 @@ public class ControllerUpdateRecipeWindow {
         recipeWindow.getIngredients().setText(recipe.getIngredients());
         recipeWindow.getInstructions().setText(recipe.getInstructions());
         recipeWindow.setSelectedRecipe(recipe);
+        recipeWindow.setOpenedFromAddRecipeWindow(true);
     }
 
     @FXML
