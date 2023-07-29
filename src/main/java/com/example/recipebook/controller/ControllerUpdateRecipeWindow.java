@@ -11,8 +11,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-
 public class ControllerUpdateRecipeWindow {
     @FXML
     private TextArea ingredients;
@@ -40,12 +38,7 @@ public class ControllerUpdateRecipeWindow {
     @FXML
     void update(ActionEvent event) {
         updateRecipeData();
-
-        try {
-            recipeDAO.updateRecipe(updateRecipe);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        recipeDAO.updateRecipe(updateRecipe);
         openRecipeWindow(updateRecipe);
     }
 
@@ -54,6 +47,7 @@ public class ControllerUpdateRecipeWindow {
         populateFields();
     }
 
+    // Заполняем поля окна текущими данными рецепта
     private void populateFields() {
         if (updateRecipe != null) {
             nameEat.setText(updateRecipe.getTitle());
@@ -64,23 +58,26 @@ public class ControllerUpdateRecipeWindow {
         }
     }
 
+    // Обновляем данные рецепта на основе введенных пользователем значений
     private void updateRecipeData() {
-        updateRecipe.setTitle(nameEat.getText());
-        updateRecipe.setIngredients(ingredients.getText());
-        updateRecipe.setInstructions(instructions.getText());
-        updateRecipe.setTypeOfMeal(typeOfMeal.getText());
-        updateRecipe.setTypeOfFood(typeOfFood.getText());
+        if (updateRecipe != null) {
+            updateRecipe.setTitle(nameEat.getText());
+            updateRecipe.setIngredients(ingredients.getText());
+            updateRecipe.setInstructions(instructions.getText());
+            updateRecipe.setTypeOfMeal(typeOfMeal.getText());
+            updateRecipe.setTypeOfFood(typeOfFood.getText());
+        }
     }
 
+    // Открываем окно рецепта с обновленными данными
     private void openRecipeWindow(Recipe recipe) {
-        Stage currentStage = (Stage) nameEat.getScene().getWindow();
-        SceneSwitcher.switchScene("/com/example/recipebook/RecipeWindow.fxml",currentStage);
-
+        SceneSwitcher.switchScene("/com/example/recipebook/RecipeWindow.fxml", (Stage) nameEat.getScene().getWindow());
         ControllerRecipeWindow recipeWindow = (ControllerRecipeWindow) SceneSwitcher.getController();
         recipeWindow.getTitle().setText(recipe.getTitle());
         recipeWindow.getIngredients().setText(recipe.getIngredients());
         recipeWindow.getInstructions().setText(recipe.getInstructions());
         recipeWindow.setSelectedRecipe(recipe);
+        recipeWindow.setOpenedFromAddRecipeWindow(true);
     }
 
     @FXML

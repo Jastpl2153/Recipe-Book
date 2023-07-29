@@ -24,20 +24,27 @@ public class ControllerMenuWindow {
         SceneSwitcher.switchScene("/com/example/recipebook/MainWindow.fxml", getStage());
     }
 
-    private void handleButtonAction(Button button) {
-        SceneSwitcher.switchScene("/com/example/recipebook/RecipeWindow.fxml", getStage());
-
-        ControllerRecipeWindow recipeWindow = (ControllerRecipeWindow) SceneSwitcher.getController();
-
-        Recipe recipe = buttonRecipeMap.get(button);
-        if (recipe != null) {
-            recipeWindow.getTitle().setText(recipe.getTitle());
-            recipeWindow.getIngredients().setText(recipe.getIngredients());
-            recipeWindow.getInstructions().setText(recipe.getInstructions());
-            recipeWindow.setSelectedRecipe(recipe);
+    @FXML
+    void sort(ActionEvent event) {
+        MenuItem menuItem = (MenuItem) event.getSource();
+        if (menuItem.getText().equals("А - Я")) {
+            sortRecipes(Comparator.comparing(Recipe::getTitle, String.CASE_INSENSITIVE_ORDER));
+        } else if (menuItem.getText().equals("Я - А")) {
+            sortRecipes(Comparator.comparing(Recipe::getTitle, String.CASE_INSENSITIVE_ORDER).reversed());
         }
     }
 
+    // Обрабатывает события при нажании на кнопку рецепта.
+    @FXML
+    void handleButtonAction(ActionEvent event) {
+        Button button = (Button) event.getSource();
+        Recipe recipe = buttonRecipeMap.get(button);
+        if (recipe != null) {
+            openRecipeWindow(recipe);
+        }
+    }
+
+    // Обновляет список кнопок рецептов в окне меню на основе переданных рецептов.
     protected void updateRecipeButtons(List<Recipe> recipes) {
         box.getChildren().clear();
 
@@ -46,21 +53,11 @@ public class ControllerMenuWindow {
             box.getChildren().add(recipeButton);
             buttonRecipeMap.put(recipeButton, recipe);
 
-            recipeButton.setOnAction(event -> handleButtonAction(recipeButton));
+            recipeButton.setOnAction(this::handleButtonAction);
             VBox.setMargin(recipeButton, new Insets(10, 15, 0, 15));
             recipeButton.setMaxWidth(Double.MAX_VALUE);
             recipeButton.setStyle("-fx-background-color: #b6eed8");
         });
-    }
-
-    @FXML
-    void sort(ActionEvent event) {
-        MenuItem menuItem = (MenuItem) event.getSource();
-        if (menuItem.getText().equals("А - Я")) {
-            sortRecipes((recipe1, recipe2) -> recipe1.getTitle().compareToIgnoreCase(recipe2.getTitle()));
-        } else if (menuItem.getText().equals("Я - А")) {
-            sortRecipes((recipe1, recipe2) -> recipe2.getTitle().compareToIgnoreCase(recipe1.getTitle()));
-        }
     }
 
     private void sortRecipes(Comparator<Recipe> comparator) {
@@ -68,7 +65,18 @@ public class ControllerMenuWindow {
         updateRecipeButtons(RecipeDataModel.getInstance().getRecipes());
     }
 
-    private Stage getStage(){
+    // Переключает текущую сцену на окно рецепта приложения и загружает данные о рецепте в окно рецепта
+    private void openRecipeWindow(Recipe recipe) {
+        SceneSwitcher.switchScene("/com/example/recipebook/RecipeWindow.fxml", getStage());
+        ControllerRecipeWindow recipeWindow = (ControllerRecipeWindow) SceneSwitcher.getController();
+
+        recipeWindow.getTitle().setText(recipe.getTitle());
+        recipeWindow.getIngredients().setText(recipe.getIngredients());
+        recipeWindow.getInstructions().setText(recipe.getInstructions());
+        recipeWindow.setSelectedRecipe(recipe);
+    }
+
+    private Stage getStage() {
         stage = (Stage) box.getScene().getWindow();
         return stage;
     }

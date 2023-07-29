@@ -1,4 +1,5 @@
 module com.example.recipebook {
+    requires lombok;
     requires javafx.controls;
     requires javafx.fxml;
 

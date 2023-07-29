@@ -3,6 +3,8 @@ package com.example.recipebook.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Класс является хранилищем информации о рецептах. Он используется для управления и хранения
+ * списка рецептов. **/
 public class RecipeDataModel {
     private static RecipeDataModel instance;
     private List<Recipe> recipes;

@@ -11,9 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-
-public class ControllerAddRecipeWindow{
+public class ControllerAddRecipeWindow {
     @FXML
     private TextField nameEat;
 
@@ -30,44 +28,56 @@ public class ControllerAddRecipeWindow{
     private TextArea instructions;
 
     private RecipeDAO recipeDAO = new RecipeDAO();
-    private Recipe recipe;
     private Stage stage;
 
     @FXML
     void EnterTypeOfFood(ActionEvent event) {
-        typeOfFood.setText(((MenuItem) event.getSource()).getText());
+        setMenuButtonText(typeOfFood, event);
     }
 
     @FXML
     void EnterTypeOfMeal(ActionEvent event) {
-        typeOfMeal.setText(((MenuItem) event.getSource()).getText());
+        setMenuButtonText(typeOfMeal, event);
     }
 
     @FXML
     void addRecipe(ActionEvent event) {
-        if (!nameEat.getText().isEmpty() && !typeOfFood.getText().isEmpty() && !typeOfMeal.getText().isEmpty()
-                && !ingredients.getText().isEmpty() && !instructions.getText().isEmpty()){
-            try {
-                recipe = new Recipe(nameEat.getText(), typeOfMeal.getText(), typeOfFood.getText(), ingredients.getText(), instructions.getText());
-                recipeDAO.addRecipe(recipe);
-                openRecipeWindow();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+        if (areFieldsValid()) {
+            Recipe recipe = createRecipeFromFields();
+            recipeDAO.addRecipe(recipe);
+            openRecipeWindow(recipe);
         }
     }
 
-    private void openRecipeWindow(){
+    // Проверяет, что все поля ввода данных заполнены
+    private boolean areFieldsValid() {
+        return !nameEat.getText().isEmpty() &&
+                !typeOfFood.getText().isEmpty() &&
+                !typeOfMeal.getText().isEmpty() &&
+                !ingredients.getText().isEmpty() &&
+                !instructions.getText().isEmpty();
+    }
+
+    private Recipe createRecipeFromFields() {
+        return new Recipe(
+                nameEat.getText(),
+                typeOfMeal.getText(),
+                typeOfFood.getText(),
+                ingredients.getText(),
+                instructions.getText()
+        );
+    }
+
+    // Открывает окно просмотра рецепта и заполняется окно данными о рецепте.
+    private void openRecipeWindow(Recipe recipe) {
         SceneSwitcher.switchScene("/com/example/recipebook/RecipeWindow.fxml", getStage());
         ControllerRecipeWindow recipeWindow = (ControllerRecipeWindow) SceneSwitcher.getController();
 
-        if (recipe != null) {
-            recipeWindow.getTitle().setText(recipe.getTitle());
-            recipeWindow.getIngredients().setText(recipe.getIngredients());
-            recipeWindow.getInstructions().setText(recipe.getInstructions());
-            recipeWindow.setSelectedRecipe(recipe);
-            recipeWindow.setOpenedFromAddRecipeWindow(true);
-        }
+        recipeWindow.getTitle().setText(recipe.getTitle());
+        recipeWindow.getIngredients().setText(recipe.getIngredients());
+        recipeWindow.getInstructions().setText(recipe.getInstructions());
+        recipeWindow.setSelectedRecipe(recipe);
+        recipeWindow.setOpenedFromAddRecipeWindow(true);
     }
 
     @FXML
@@ -75,7 +85,12 @@ public class ControllerAddRecipeWindow{
         SceneSwitcher.switchScene("/com/example/recipebook/MainWindow.fxml", getStage());
     }
 
-    private Stage getStage(){
+    private void setMenuButtonText(SplitMenuButton button, ActionEvent event) {
+        MenuItem menuItem = (MenuItem) event.getSource();
+        button.setText(menuItem.getText());
+    }
+
+    private Stage getStage() {
         stage = (Stage) nameEat.getScene().getWindow();
         return stage;
     }
