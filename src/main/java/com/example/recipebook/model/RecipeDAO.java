@@ -1,5 +1,7 @@
 package com.example.recipebook.model;
 
+import org.sqlite.Function;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +16,11 @@ public class RecipeDAO {
         connection = SQLiteConnection.connection();
         if (connection == null){
             System.exit(1);
+        }
+        try {
+            Function.create(connection, "lower", new LCase());
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -100,6 +107,41 @@ public class RecipeDAO {
                 connection.close();
             }
         }
+    }
+
+    public List<Recipe> searchRecipes(String searchWord) {
+        List<Recipe> recipes = new ArrayList<>();
+        String query = "SELECT DISTINCT * FROM recipes WHERE " +
+                "lower(title) LIKE ? OR " +
+                "lower(typeOfMeal) LIKE ? OR " +
+                "lower(typeOfMeal) LIKE ? OR " +
+                "lower(ingredients) LIKE ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            String searchPattern = "%" + searchWord + "%";
+            preparedStatement.setString(1, searchPattern);
+            preparedStatement.setString(2, searchPattern);
+            preparedStatement.setString(3, searchPattern);
+            preparedStatement.setString(4, searchPattern);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Recipe recipe = new Recipe(
+                            resultSet.getString("title"),
+                            resultSet.getString("typeOfMeal"),
+                            resultSet.getString("typeOfFood"),
+                            resultSet.getString("ingredients"),
+                            resultSet.getString("instructions"),
+                            resultSet.getInt("id")
+                    );
+                    recipes.add(recipe);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return recipes;
     }
 }
 
