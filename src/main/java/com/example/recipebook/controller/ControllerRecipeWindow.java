@@ -43,6 +43,16 @@ public class ControllerRecipeWindow {
         deleteController.setRecipe(selectedRecipe, (Stage) ((Button)event.getSource()).getScene().getWindow());
     }
 
+    @FXML
+    void updateRecipe(ActionEvent event) {
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        SceneSwitcher.switchScene("/com/example/recipebook/UpdateRecipeWindow.fxml", currentStage);
+
+        ControllerUpdateRecipeWindow window = (ControllerUpdateRecipeWindow) SceneSwitcher.getController();
+        window.setUpdateRecipe(selectedRecipe);
+    }
+
+
     public Label getIngredients() {
         return ingredients;
     }
