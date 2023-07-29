@@ -22,7 +22,7 @@
          <children>
             <HBox alignment="TOP_RIGHT" fillHeight="false">
                <children>
-                  <TextField focusTraversable="false" maxWidth="1.7976931348623157E308" onAction="#search" prefHeight="25.0" promptText="Поиск" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="search" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="25.0" promptText="Поиск" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -30,6 +30,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
+                  <Button mnemonicParsing="false" onAction="#search" style="-fx-background-color: #314cf8;" text="Поиск" textFill="WHITE" />
                   <Button focusTraversable="false" mnemonicParsing="false" onAction="#addRecipe" prefHeight="25.0" style="-fx-background-color: #17b050;" text="Добавить рецепт">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />

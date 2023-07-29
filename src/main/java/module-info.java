@@ -11,4 +11,5 @@ module com.example.recipebook {
 
     requires java.naming;
     requires java.sql;
+    requires org.xerial.sqlitejdbc;
 }
