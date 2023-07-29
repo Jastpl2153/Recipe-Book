@@ -47,6 +47,7 @@ public class ControllerUpdateRecipeWindow {
         populateFields();
     }
 
+    // Заполняем поля окна текущими данными рецепта
     private void populateFields() {
         if (updateRecipe != null) {
             nameEat.setText(updateRecipe.getTitle());
@@ -57,6 +58,7 @@ public class ControllerUpdateRecipeWindow {
         }
     }
 
+    // Обновляем данные рецепта на основе введенных пользователем значений
     private void updateRecipeData() {
         if (updateRecipe != null) {
             updateRecipe.setTitle(nameEat.getText());
@@ -67,6 +69,7 @@ public class ControllerUpdateRecipeWindow {
         }
     }
 
+    // Открываем окно рецепта с обновленными данными
     private void openRecipeWindow(Recipe recipe) {
         SceneSwitcher.switchScene("/com/example/recipebook/RecipeWindow.fxml", (Stage) nameEat.getScene().getWindow());
         ControllerRecipeWindow recipeWindow = (ControllerRecipeWindow) SceneSwitcher.getController();

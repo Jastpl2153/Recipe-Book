@@ -49,6 +49,7 @@ public class ControllerAddRecipeWindow {
         }
     }
 
+    // Проверяет, что все поля ввода данных заполнены
     private boolean areFieldsValid() {
         return !nameEat.getText().isEmpty() &&
                 !typeOfFood.getText().isEmpty() &&
@@ -67,6 +68,7 @@ public class ControllerAddRecipeWindow {
         );
     }
 
+    // Открывает окно просмотра рецепта и заполняется окно данными о рецепте.
     private void openRecipeWindow(Recipe recipe) {
         SceneSwitcher.switchScene("/com/example/recipebook/RecipeWindow.fxml", getStage());
         ControllerRecipeWindow recipeWindow = (ControllerRecipeWindow) SceneSwitcher.getController();

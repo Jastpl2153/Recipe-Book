@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Запросы для БД **/
 public class RecipeDAO {
     private Connection connection;
 

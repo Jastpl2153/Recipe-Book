@@ -18,11 +18,13 @@ public class ControllerMainWindow {
     private RecipeDAO recipeDAO = new RecipeDAO();
     private Stage stage;
 
+    // Переключает сцену на окно добавления рецепта.
     @FXML
     void addRecipe(ActionEvent event) {
         SceneSwitcher.switchScene("/com/example/recipebook/AddRecipeWindow.fxml", getStage());
     }
 
+    // Переключает сцену на окно с отображением рецептов выбранного типа блюда.
     @FXML
     void menuEnter(ActionEvent event) {
         String type = ((Button) event.getSource()).getText();
@@ -34,6 +36,7 @@ public class ControllerMainWindow {
         updateMenuRecipeButtons();
     }
 
+    // Выполняет поиск рецептов по введенному пользователем слову.
     @FXML
     void search(ActionEvent event) {
         String userInput = search.getText();

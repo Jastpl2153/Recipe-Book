@@ -34,6 +34,7 @@ public class ControllerMenuWindow {
         }
     }
 
+    // Обрабатывает события при нажании на кнопку рецепта.
     @FXML
     void handleButtonAction(ActionEvent event) {
         Button button = (Button) event.getSource();
@@ -43,6 +44,7 @@ public class ControllerMenuWindow {
         }
     }
 
+    // Обновляет список кнопок рецептов в окне меню на основе переданных рецептов.
     protected void updateRecipeButtons(List<Recipe> recipes) {
         box.getChildren().clear();
 
@@ -63,6 +65,7 @@ public class ControllerMenuWindow {
         updateRecipeButtons(RecipeDataModel.getInstance().getRecipes());
     }
 
+    // Переключает текущую сцену на окно рецепта приложения и загружает данные о рецепте в окно рецепта
     private void openRecipeWindow(Recipe recipe) {
         SceneSwitcher.switchScene("/com/example/recipebook/RecipeWindow.fxml", getStage());
         ControllerRecipeWindow recipeWindow = (ControllerRecipeWindow) SceneSwitcher.getController();

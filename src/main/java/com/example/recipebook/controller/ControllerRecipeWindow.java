@@ -37,6 +37,10 @@ public class ControllerRecipeWindow {
         handleBackAction(currentStage);
     }
 
+    // Возвращает пользователя на предыдущее окно в зависимости от того, откуда было открыто окно рецепта.
+    // Если окно открыто из окна добавления рецепта, переходит на главное окно (MainWindow.fxml).
+    // Иначе переходит на окно меню рецептов (MenuWindow.fxml) и обновляет кнопки рецептов.
+
     private void handleBackAction(Stage currentStage) {
         if (openedFromAddRecipeWindow) {
             SceneSwitcher.switchScene("/com/example/recipebook/MainWindow.fxml", currentStage);
@@ -59,6 +63,8 @@ public class ControllerRecipeWindow {
         deleteController.setRecipe(selectedRecipe, (Stage) ((Button) event.getSource()).getScene().getWindow());
     }
 
+
+    // Переходит на окно редактирования рецепта.
     @FXML
     void updateRecipe(ActionEvent event) {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -72,6 +78,8 @@ public class ControllerRecipeWindow {
         window.setUpdateRecipe(selectedRecipe);
     }
 
+    // Устанавливает флаг, указывающий, было ли окно открыто из окна добавления рецепта.
+    // Это позволяет определить, на какое окно перейти при нажатии кнопки "Назад".
     public void setOpenedFromAddRecipeWindow(boolean openedFromAddRecipeWindow) {
         this.openedFromAddRecipeWindow = openedFromAddRecipeWindow;
     }

@@ -7,9 +7,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/** Класс управление сменой окон **/
 public class SceneSwitcher {
     private static FXMLLoader loader;
 
+    // Открытие новой сцены в этом же окне
     public static void switchScene(String fxmlPath, Stage currentStage) {
         try {
             loader = new FXMLLoader(SceneSwitcher.class.getResource(fxmlPath));

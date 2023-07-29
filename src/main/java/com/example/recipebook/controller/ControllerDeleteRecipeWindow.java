@@ -29,6 +29,7 @@ public class ControllerDeleteRecipeWindow {
         exit(button);
     }
 
+    // Удаляет выбранный рецепт и обновляет список рецептов в окне меню
     private void deleteRecipeAndRefreshMenu() {
         recipeDAO.deleteRecipe(recipeToDelete);
         RecipeDataModel.getInstance().getRecipes().remove(recipeToDelete);
