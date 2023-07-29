@@ -5,7 +5,6 @@ import com.example.recipebook.model.RecipeDAO;
 import com.example.recipebook.model.SceneSwitcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextArea;
@@ -32,6 +31,7 @@ public class ControllerAddRecipeWindow{
 
     private RecipeDAO recipeDAO = new RecipeDAO();
     private Recipe recipe;
+    private Stage stage;
 
     @FXML
     void EnterTypeOfFood(ActionEvent event) {
@@ -50,25 +50,33 @@ public class ControllerAddRecipeWindow{
             try {
                 recipe = new Recipe(nameEat.getText(), typeOfFood.getText(), typeOfMeal.getText(), ingredients.getText(), instructions.getText());
                 recipeDAO.addRecipe(recipe);
+                openRecipe();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            cleanField();
-            //TODO: Реализовать переход к странице рецепта.
         }
     }
 
-    private void cleanField(){
-        nameEat.setText("");
-        typeOfFood.setText("");
-        typeOfMeal.setText("");
-        ingredients.setText("");
-        instructions.setText("");
+    private void openRecipe(){
+        SceneSwitcher.switchScene("/com/example/recipebook/RecipeWindow.fxml", getStage());
+        ControllerRecipeWindow recipeWindow = (ControllerRecipeWindow) SceneSwitcher.getController();
+
+        if (recipe != null) {
+            recipeWindow.getTitle().setText(recipe.getTitle());
+            recipeWindow.getIngredients().setText(recipe.getIngredients());
+            recipeWindow.getInstructions().setText(recipe.getInstructions());
+            recipeWindow.setSelectedRecipe(recipe);
+            recipeWindow.setOpenedFromAddRecipeWindow(true);
+        }
     }
 
     @FXML
     void back(ActionEvent event) {
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        SceneSwitcher.switchScene("/com/example/recipebook/MainWindow.fxml", currentStage);
+        SceneSwitcher.switchScene("/com/example/recipebook/MainWindow.fxml", getStage());
+    }
+
+    private Stage getStage(){
+        stage = (Stage) nameEat.getScene().getWindow();
+        return stage;
     }
 }
